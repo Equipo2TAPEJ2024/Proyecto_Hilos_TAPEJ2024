@@ -2,8 +2,8 @@ package hilos;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
-import hilos.*;
 
 public class CuadradoControlable1 {
 
@@ -84,6 +84,19 @@ public class CuadradoControlable1 {
     public void dibujar(Graphics g) {
         g.setColor(Color.BLUE);
         g.fillRect(x, y, tamaño, tamaño);
+    }
+
+    //logica para la colision de las balas
+    public boolean hayColision(ArrayList<HiloBalaRoja> balas) {
+        Rectangle cuadradoRect = new Rectangle(x, y, tamaño, tamaño);
+        for (HiloBalaRoja bala : balas) {
+            Rectangle balaRect = new Rectangle(bala.getX() - bala.getRadio(), bala.getY() - bala.getRadio(),
+                    2 * bala.getRadio(), 2 * bala.getRadio());
+            if (cuadradoRect.intersects(balaRect)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

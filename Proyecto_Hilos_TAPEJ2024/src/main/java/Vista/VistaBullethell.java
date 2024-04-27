@@ -19,6 +19,7 @@ public class VistaBullethell extends Frame {
         setBackground(Color.WHITE);
         setLocationRelativeTo(null);
 
+
         // este es el cuadrado que se puede mover
         cuadrado = new CuadradoControlable1(400, 450, 50);
 
@@ -54,6 +55,7 @@ public class VistaBullethell extends Frame {
             }
         });
 
+
         setVisible(true);
     }
 
@@ -81,9 +83,9 @@ public class VistaBullethell extends Frame {
                 break;
         }
 
-        HiloBalaRoja bala = new HiloBalaRoja(getGraphics(), x, y);
-        balas.add(bala);
-        bala.start();
+        HiloBalaRoja balaR = new HiloBalaRoja(getGraphics(), x, y);
+        balas.add(balaR);
+        balaR.start();
     }
 
     // paint Graphics para dibujar el cuadrado y las balas
@@ -96,7 +98,10 @@ public class VistaBullethell extends Frame {
         for (HiloBalaRoja bala : balas) {
             bala.dibujar(g);
         }
-    }
 
+        if (cuadrado.hayColision(balas)) {
+            System.exit(0); // cierra el programa si las balas te tocan
+        }
+    }
 
 }
