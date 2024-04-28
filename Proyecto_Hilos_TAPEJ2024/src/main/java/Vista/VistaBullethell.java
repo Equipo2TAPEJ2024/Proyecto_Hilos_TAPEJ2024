@@ -9,9 +9,11 @@ import javax.swing.Timer;
 
 public class VistaBullethell extends Frame {
 
-    private Timer timer;
+    private Timer timerBalaRoja;
+    private Timer timerBalaAzul;
     private CuadradoControlable1 cuadrado;
-    private ArrayList<HiloBalaRoja> balas;
+    private ArrayList<HiloBalaRoja> balasRojas;
+    private ArrayList<HiloBalaAzul> balasAzules;
 
     public VistaBullethell() {
         super("Bullet Hell");
@@ -19,31 +21,39 @@ public class VistaBullethell extends Frame {
         setBackground(Color.WHITE);
         setLocationRelativeTo(null);
 
-
         // este es el cuadrado que se puede mover
         cuadrado = new CuadradoControlable1(400, 450, 50);
 
         // lista de balas
-        balas = new ArrayList<>();
+        balasRojas = new ArrayList<>();
+        balasAzules = new ArrayList<>();
 
         // temporizador que genera balas cada 2 segundos
-        timer = new Timer(5000, new ActionListener() {
+        timerBalaRoja = new Timer(5000, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 generarBalaAleatoria();
             }
         });
-        timer.start();
+        timerBalaRoja.start();
+
+        timerBalaAzul = new Timer(15000, new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                generarBalaAzulAleatoria();
+            }
+        });
+        timerBalaAzul.start();
+
 
         // estos son los eventos para el movimiento del cuadrado
         addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
                 cuadrado.keyPressed(e.getKeyCode());
-                repaint();
+                //repaint();
             }
 
             public void keyReleased(KeyEvent e) {
                 cuadrado.keyReleased(e.getKeyCode());
-                repaint();
+                //repaint();
             }
         });
 
@@ -58,6 +68,13 @@ public class VistaBullethell extends Frame {
 
         setVisible(true);
     }
+
+
+
+
+
+
+
 
     // logica de posicionamiento de las balas
     private void generarBalaAleatoria() {
@@ -84,9 +101,38 @@ public class VistaBullethell extends Frame {
         }
 
         HiloBalaRoja balaR = new HiloBalaRoja(getGraphics(), x, y);
-        balas.add(balaR);
+        balasRojas.add(balaR);
         balaR.start();
     }
+
+    private void generarBalaAzulAleatoria() {
+        int lado = (int) (Math.random() * 4);
+        int x = 0, y = 0;
+        switch (lado) {
+            case 0: // Arriba
+                x = (int) (Math.random() * getWidth());
+                y = 10;
+                break;
+            case 1: // Derecha
+                x = getWidth();
+                y = (int) (Math.random() * getHeight());
+                break;
+            case 2: // Abajo
+                x = (int) (Math.random() * getWidth());
+                y = getHeight();
+                break;
+            case 3: // Izquierda
+                x = 10;
+                y = (int) (Math.random() * getHeight());
+                break;
+        }
+        HiloBalaAzul balaAzul = new HiloBalaAzul(getGraphics(), x, y);
+        balasAzules.add(balaAzul);
+        balaAzul.start();
+    }
+
+
+
 
     // paint Graphics para dibujar el cuadrado y las balas
     public void paint(Graphics g) {
@@ -95,13 +141,18 @@ public class VistaBullethell extends Frame {
         cuadrado.dibujar(g);
         cuadrado.mover();
 
-        for (HiloBalaRoja bala : balas) {
+        for (HiloBalaRoja bala : balasRojas) {
             bala.dibujar(g);
         }
 
-        if (cuadrado.hayColision(balas)) {
+        for (HiloBalaAzul balaAzul : balasAzules) {
+            balaAzul.dibujar(g);
+        }
+
+        if (cuadrado.hayColision(balasRojas,balasAzules)) {
             System.exit(0); // cierra el programa si las balas te tocan
         }
+
     }
 
 }
