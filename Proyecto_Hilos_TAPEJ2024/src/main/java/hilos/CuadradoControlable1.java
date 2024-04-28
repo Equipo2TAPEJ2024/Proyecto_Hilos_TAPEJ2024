@@ -87,7 +87,7 @@ public class CuadradoControlable1 {
     }
 
     //logica para la colision de las balas
-    public boolean hayColision(ArrayList<HiloBalaRoja> balasRojas, ArrayList<HiloBalaAzul> balasAzules) {
+    public boolean hayColision(ArrayList<HiloBalaRoja> balasRojas, ArrayList<HiloBalaAzul> balasAzules, ArrayList<HiloBalaVerde> balasVerdes) {
         Rectangle cuadradoRect = new Rectangle(x, y, tamaño, tamaño);
         for (HiloBalaRoja balaRoja : balasRojas) {
             Rectangle balaRect = new Rectangle(balaRoja.getX() - balaRoja.getRadio(), balaRoja.getY() - balaRoja.getRadio(),
@@ -100,6 +100,12 @@ public class CuadradoControlable1 {
         for (HiloBalaAzul balaAzul : balasAzules) {
             Rectangle balaRect = new Rectangle(balaAzul.getX() - balaAzul.getRadio(), balaAzul.getY() - balaAzul.getRadio(),
                     2 * balaAzul.getRadio(), 2 * balaAzul.getRadio());
+            if (cuadradoRect.intersects(balaRect)) {
+                return true;
+            }
+        }
+        for (HiloBalaVerde balaVerde : balasVerdes) {
+            Rectangle balaRect = new Rectangle(balaVerde.getX(), balaVerde.getY(), balaVerde.getAnchoBala(), balaVerde.getAltoBala());
             if (cuadradoRect.intersects(balaRect)) {
                 return true;
             }
