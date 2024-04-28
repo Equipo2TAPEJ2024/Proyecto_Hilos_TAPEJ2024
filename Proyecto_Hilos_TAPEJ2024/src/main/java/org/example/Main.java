@@ -1,6 +1,6 @@
 package org.example;
 
-import Vista.VistaBullethell;
+import Vista.*;
 
 public class Main {
     public static void main(String[] args) {

@@ -1,17 +1,13 @@
 package Modelo;
 
 public class Contador {
-    private int contador;
+    public static int contador = 0;
 
-    public Contador() {
-        this.contador = 0;
-    }
-
-    public int getContador() {
+    public static int getContador() {
         return contador;
     }
 
-    public void incrementarContador() {
+    public static void incrementarContador() {
         contador++;
     }
 }
