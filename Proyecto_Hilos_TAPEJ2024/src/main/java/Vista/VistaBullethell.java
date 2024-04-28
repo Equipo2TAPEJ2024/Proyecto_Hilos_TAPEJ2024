@@ -11,9 +11,11 @@ public class VistaBullethell extends Frame {
 
     private Timer timerBalaRoja;
     private Timer timerBalaAzul;
+    private Timer timerBalaVerde;
     private CuadradoControlable1 cuadrado;
     private ArrayList<HiloBalaRoja> balasRojas;
     private ArrayList<HiloBalaAzul> balasAzules;
+    private ArrayList<HiloBalaVerde> balasVerdes;
 
     public VistaBullethell() {
         super("Bullet Hell");
@@ -27,6 +29,7 @@ public class VistaBullethell extends Frame {
         // lista de balas
         balasRojas = new ArrayList<>();
         balasAzules = new ArrayList<>();
+        balasVerdes = new ArrayList<>();
 
         // temporizador que genera balas cada 2 segundos
         timerBalaRoja = new Timer(5000, new ActionListener() {
@@ -42,6 +45,13 @@ public class VistaBullethell extends Frame {
             }
         });
         timerBalaAzul.start();
+
+        timerBalaVerde = new Timer(2000, new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                generarBalaVerdeAleatoria();
+            }
+        });
+        timerBalaVerde.start();
 
 
         // estos son los eventos para el movimiento del cuadrado
@@ -131,6 +141,13 @@ public class VistaBullethell extends Frame {
         balaAzul.start();
     }
 
+    private void generarBalaVerdeAleatoria() {
+        int direccion = (int) (Math.random() * 2); // 0 para izquierda, 1 para derecha
+        HiloBalaVerde balaVerde = new HiloBalaVerde(getGraphics(), getWidth(), getHeight(), direccion);
+        balasVerdes.add(balaVerde);
+        balaVerde.start();
+    }
+
 
 
 
@@ -141,15 +158,19 @@ public class VistaBullethell extends Frame {
         cuadrado.dibujar(g);
         cuadrado.mover();
 
-        for (HiloBalaRoja bala : balasRojas) {
-            bala.dibujar(g);
+        for (HiloBalaRoja balaRoja : balasRojas) {
+            balaRoja.dibujar(g);
         }
 
         for (HiloBalaAzul balaAzul : balasAzules) {
             balaAzul.dibujar(g);
         }
 
-        if (cuadrado.hayColision(balasRojas,balasAzules)) {
+        for (HiloBalaVerde balaVerde : balasVerdes) {
+            balaVerde.dibujar(g);
+        }
+
+        if (cuadrado.hayColision(balasRojas,balasAzules,balasVerdes)) {
             System.exit(0); // cierra el programa si las balas te tocan
         }
 
