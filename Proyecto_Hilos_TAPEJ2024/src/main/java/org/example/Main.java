@@ -1,23 +1,23 @@
 package org.example;
 
-import Vista.*;
+import vista.*;
+import javax.swing.Timer;
 
 public class Main {
     public static void main(String[] args) {
-        VistaBullethell aplicacion = new VistaBullethell();
+        vistaMenuPrincipal menuPrincipal = new vistaMenuPrincipal();
 
-        // sentencia para repintar la ventana cada 15 milisegundos y hacer que tenga un movimiento fluido
-        while (true) {
-            aplicacion.repaint();
-            while (true) {
-                aplicacion.repaint();
-                try {
-                    Thread.sleep(15);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+        menuPrincipal.btnJugar.addActionListener(e -> {
+            menuPrincipal.setVisible(false);
 
+            VistaBullethell aplicacion = new VistaBullethell();
+            aplicacion.setVisible(true);
+
+            // un Timer que repinta la ventana cada 15 milisegundos (como me gusta complicarme las cosas)
+            Timer timer = new Timer(15, event -> aplicacion.repaint());
+            timer.start();
+        });
+
+        menuPrincipal.setVisible(true);
     }
 }

@@ -1,4 +1,4 @@
-package Vista;
+package vista;
 
 import hilos.*;
 
@@ -156,7 +156,7 @@ public class VistaBullethell extends Frame {
         super.paint(g);
 
         cuadrado.dibujar(g);
-        cuadrado.mover();
+        cuadrado.mover(getWidth(), getHeight());
 
         for (HiloBalaRoja balaRoja : balasRojas) {
             balaRoja.dibujar(g);

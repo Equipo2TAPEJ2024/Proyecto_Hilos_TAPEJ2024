@@ -1,4 +1,4 @@
-package Modelo;
+package modelo;
 
 public class Contador {
     public static int contador = 0;
