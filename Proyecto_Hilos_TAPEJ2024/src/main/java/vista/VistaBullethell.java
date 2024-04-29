@@ -1,13 +1,15 @@
 package vista;
 
 import hilos.*;
+import modelo.Contador;
 import modelo.CuadradoControlable1;
+import modelo.Puntuaciones;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import javax.swing.Timer;
+import javax.swing.*;
 import java.io.*;
 import javax.imageio.ImageIO;
 
@@ -124,6 +126,7 @@ public class VistaBullethell extends Frame {
         HiloBalaRoja balaR = new HiloBalaRoja(x, y);
         balasRojas.add(balaR);
         balaR.start();
+        Contador.incrementarContador(100);
     }
 
     private void generarBalaAzulAleatoria() {
@@ -150,6 +153,7 @@ public class VistaBullethell extends Frame {
         HiloBalaAzul balaAzul = new HiloBalaAzul( x, y);
         balasAzules.add(balaAzul);
         balaAzul.start();
+        Contador.incrementarContador(500);
     }
 
     private void generarBalaVerdeAleatoria() {
@@ -157,6 +161,7 @@ public class VistaBullethell extends Frame {
         HiloBalaVerde balaVerde = new HiloBalaVerde( getWidth(), getHeight(), direccion);
         balasVerdes.add(balaVerde);
         balaVerde.start();
+        Contador.incrementarContador(50);
     }
 
 
@@ -186,7 +191,8 @@ public class VistaBullethell extends Frame {
         }
 
         if (cuadrado.hayColision(balasRojas,balasAzules,balasVerdes)) {
-            System.exit(0); // cierra el programa si las balas te tocan
+            Puntuaciones.actualizarMejorPuntuacion(Contador.getContador());
+            congelarJuego();
         }
 
     }
@@ -200,6 +206,15 @@ public class VistaBullethell extends Frame {
         paint(g2d);
         g2d.dispose();
         g.drawImage(buffer, 0, 0, this);
+    }
+
+    private void congelarJuego() {
+        timerBalaRoja.stop();
+        timerBalaAzul.stop();
+        timerBalaVerde.stop();
+        setVisible(false);
+        Contador.detenerContador();
+
     }
 
 }
