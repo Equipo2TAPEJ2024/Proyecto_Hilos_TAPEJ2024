@@ -1,6 +1,7 @@
 package org.interaccion;
 
 
+import control.ControlBulletHell;
 import modelo.Contador;
 import vista.*;
 import javax.swing.Timer;
@@ -14,7 +15,7 @@ public class Main {
         menuPrincipal.btnJugar.addActionListener(e -> {
             menuPrincipal.setVisible(false);
 
-            VistaBullethell aplicacion = new VistaBullethell();
+            ControlBulletHell aplicacion = new ControlBulletHell();
 
 
             int xPuntuacion = aplicacion.getX() + aplicacion.getWidth();
