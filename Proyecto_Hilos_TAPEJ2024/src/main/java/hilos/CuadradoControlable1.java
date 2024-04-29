@@ -25,13 +25,13 @@ public class CuadradoControlable1 {
         if (arribaPresionado && izquierdaPresionado && y > 0 && x > 0) {
             x -= VELOCIDAD;
             y -= VELOCIDAD;
-        } else if (arribaPresionado && derechaPresionado) {
+        } else if (arribaPresionado && derechaPresionado && y > 0 && x < ventanaAncho - tamaño) {
             x += VELOCIDAD;
             y -= VELOCIDAD;
-        } else if (abajoPresionado && izquierdaPresionado) {
+        } else if (abajoPresionado && izquierdaPresionado && y < ventanaAlto - tamaño && x > 0) {
             x -= VELOCIDAD;
             y += VELOCIDAD;
-        } else if (abajoPresionado && derechaPresionado) {
+        } else if (abajoPresionado && derechaPresionado && y < ventanaAlto - tamaño && x < ventanaAncho - tamaño) {
             x += VELOCIDAD;
             y += VELOCIDAD;
         } else if (arribaPresionado && y > 0) {
