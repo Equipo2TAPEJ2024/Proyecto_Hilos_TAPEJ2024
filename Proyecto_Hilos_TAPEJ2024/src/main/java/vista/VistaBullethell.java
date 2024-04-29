@@ -1,14 +1,18 @@
 package vista;
 
 import hilos.*;
+import modelo.CuadradoControlable1;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import javax.swing.Timer;
+import java.io.*;
+import javax.imageio.ImageIO;
 
 public class VistaBullethell extends Frame {
-
+    private BufferedImage fondo;
     private Timer timerBalaRoja;
     private Timer timerBalaAzul;
     private Timer timerBalaVerde;
@@ -22,6 +26,16 @@ public class VistaBullethell extends Frame {
         setSize(800, 900);
         setBackground(Color.WHITE);
         setLocationRelativeTo(null);
+        setResizable(false);
+
+
+        // Cargar la imagen para el fondo
+        try {
+            fondo = ImageIO.read(new File("Proyecto_Hilos_TAPEJ2024/src/main/java/assets/espacio.jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
         // este es el cuadrado que se puede mover
         cuadrado = new CuadradoControlable1(400, 450, 50);
@@ -83,9 +97,6 @@ public class VistaBullethell extends Frame {
 
 
 
-
-
-
     // logica de posicionamiento de las balas
     private void generarBalaAleatoria() {
 
@@ -110,7 +121,7 @@ public class VistaBullethell extends Frame {
                 break;
         }
 
-        HiloBalaRoja balaR = new HiloBalaRoja(getGraphics(), x, y);
+        HiloBalaRoja balaR = new HiloBalaRoja(x, y);
         balasRojas.add(balaR);
         balaR.start();
     }
@@ -136,14 +147,14 @@ public class VistaBullethell extends Frame {
                 y = (int) (Math.random() * getHeight());
                 break;
         }
-        HiloBalaAzul balaAzul = new HiloBalaAzul(getGraphics(), x, y);
+        HiloBalaAzul balaAzul = new HiloBalaAzul( x, y);
         balasAzules.add(balaAzul);
         balaAzul.start();
     }
 
     private void generarBalaVerdeAleatoria() {
         int direccion = (int) (Math.random() * 2); // 0 para izquierda, 1 para derecha
-        HiloBalaVerde balaVerde = new HiloBalaVerde(getGraphics(), getWidth(), getHeight(), direccion);
+        HiloBalaVerde balaVerde = new HiloBalaVerde( getWidth(), getHeight(), direccion);
         balasVerdes.add(balaVerde);
         balaVerde.start();
     }
@@ -154,6 +165,10 @@ public class VistaBullethell extends Frame {
     // paint Graphics para dibujar el cuadrado y las balas
     public void paint(Graphics g) {
         super.paint(g);
+
+        if (fondo != null) {
+            g.drawImage(fondo, 0, 0, getWidth(), getHeight(), this);
+        }
 
         cuadrado.dibujar(g);
         cuadrado.mover(getWidth(), getHeight());
@@ -174,6 +189,17 @@ public class VistaBullethell extends Frame {
             System.exit(0); // cierra el programa si las balas te tocan
         }
 
+    }
+
+
+    @Override
+    public void update(Graphics g) {
+        // implementacion de doble buffer (fuente:https://youtu.be/17y2hZWJN0U?si=JEBB9FcMUDNYLP9_ [dios mio que dolor de cabeza])
+        BufferedImage buffer = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = buffer.createGraphics();
+        paint(g2d);
+        g2d.dispose();
+        g.drawImage(buffer, 0, 0, this);
     }
 
 }

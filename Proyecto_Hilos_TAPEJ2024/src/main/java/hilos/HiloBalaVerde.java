@@ -1,30 +1,38 @@
 package hilos;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import javax.imageio.ImageIO;
 
 public class HiloBalaVerde extends Thread {
 
     private int x, y, incX;
     private final int ANCHO_BALA = 120;
     private final int ALTO_BALA = 15;
-    private Graphics g;
+    private BufferedImage verdeimagen;
     private int ventanaAncho;
     private int ventanaAlto;
 
-    public HiloBalaVerde(Graphics g, int ventanaAncho, int ventanaAlto, int direccion) {
-        this.g = g;
+    public HiloBalaVerde( int ventanaAncho, int ventanaAlto, int direccion) {
         this.ventanaAncho = ventanaAncho;
         this.ventanaAlto = ventanaAlto;
 
         y = (int) (Math.random() * (ventanaAlto - ALTO_BALA));
 
 
-        if (direccion == 0) { // Desde la izquierda
-            x = -ANCHO_BALA;
-            incX = 2; // Velocidad
-        } else { // Desde la derecha
-            x = ventanaAncho;
-            incX = -2; // Velocidad
+        try {
+            if (direccion == 0) { // Desde la izquierda
+                x = -ANCHO_BALA;
+                incX = 2; // Velocidad
+                verdeimagen = ImageIO.read(new File("Proyecto_Hilos_TAPEJ2024/src/main/java/assets/balaverde.png"));
+            } else { // Desde la derecha
+                x = ventanaAncho;
+                incX = -2; // Velocidad
+                verdeimagen = ImageIO.read(new File("Proyecto_Hilos_TAPEJ2024/src/main/java/assets/balaverde.png"));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -45,8 +53,7 @@ public class HiloBalaVerde extends Thread {
     }
 
     public void dibujar(Graphics g) {
-        g.setColor(Color.GREEN);
-        g.fillRect(x, y, ANCHO_BALA, ALTO_BALA);
+        g.drawImage(verdeimagen, x, y, ANCHO_BALA, ALTO_BALA, null);
     }
 
     public int getX() {
