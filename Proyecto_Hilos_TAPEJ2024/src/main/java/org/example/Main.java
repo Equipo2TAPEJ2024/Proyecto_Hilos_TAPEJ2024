@@ -1,5 +1,6 @@
 package org.example;
 
+
 import vista.*;
 import javax.swing.Timer;
 
@@ -20,4 +21,5 @@ public class Main {
 
         menuPrincipal.setVisible(true);
     }
+
 }

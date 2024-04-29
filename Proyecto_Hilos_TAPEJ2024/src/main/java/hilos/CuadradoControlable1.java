@@ -3,21 +3,27 @@ package hilos;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 public class CuadradoControlable1 {
-
+    private BufferedImage imagencuadrado;
     private int x, y, tamaño;
     private static final int VELOCIDAD = 8;
     private boolean arribaPresionado, abajoPresionado, izquierdaPresionado, derechaPresionado;
 
     //metodo para verificar si la bala colisiona
-
-
     public CuadradoControlable1(int x, int y, int tamaño) {
         this.x = x;
         this.y = y;
         this.tamaño = tamaño;
+        try {
+            imagencuadrado = ImageIO.read(new File("Proyecto_Hilos_TAPEJ2024/src/main/java/assets/ufo.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // logica de movimiento considerqando las combinaciones de teclas
@@ -82,8 +88,15 @@ public class CuadradoControlable1 {
     }
 
     public void dibujar(Graphics g) {
-        g.setColor(Color.BLUE);
-        g.fillRect(x, y, tamaño, tamaño);
+        if (imagencuadrado != null) { // implementacion de BufferedImage
+            BufferedImage buffer = new BufferedImage(tamaño, tamaño, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2d = buffer.createGraphics();
+            g2d.drawImage(imagencuadrado, 0, 0, tamaño, tamaño, null);
+            g2d.dispose();
+
+            // Dibujar la imagen en la ventana
+            g.drawImage(buffer, x, y, null);
+        }
     }
 
     //logica para la colision de las balas
