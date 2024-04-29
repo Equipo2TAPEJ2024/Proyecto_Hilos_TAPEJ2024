@@ -1,4 +1,4 @@
-package Vista;
+package vista;
 
 import javax.swing.*;
 
@@ -22,9 +22,9 @@ public class vistaPuntuacion extends JFrame{
 
         setTitle("Juego Terminado");
         setContentPane(panelGeneral);
+        setResizable(false);
+        setSize(500,330);
         setLocationRelativeTo(null);
-        //setSize();
-
         //esto se modificara al superar la mejor puntuacion
         lblRecord.setVisible(false);
     }

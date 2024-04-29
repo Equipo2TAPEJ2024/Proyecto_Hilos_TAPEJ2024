@@ -1,6 +1,7 @@
-package Vista;
+package vista;
 
 import javax.swing.*;
+import java.awt.event.ActionListener;
 
 public class vistaMenuPrincipal extends JFrame{
     public JPanel panelGeneral;
@@ -13,10 +14,15 @@ public class vistaMenuPrincipal extends JFrame{
     public vistaMenuPrincipal(){
 
         setContentPane(panelGeneral);
+
+        setSize(800,500);
         setLocationRelativeTo(null);
-        //setSize();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //setTitle("");
+        setTitle("Bullet Hell");
+        setResizable(false);
+        setVisible(true);
 
     }
+
+
 }

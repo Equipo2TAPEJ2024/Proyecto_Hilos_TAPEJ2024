@@ -21,31 +21,11 @@ public class CuadradoControlable1 {
     }
 
     // logica de movimiento considerqando las combinaciones de teclas
-    public void mover() {
-        if (arribaPresionado && izquierdaPresionado) {
-            x -= VELOCIDAD;
-            y -= VELOCIDAD;
-        } else if (arribaPresionado && derechaPresionado) {
-            x += VELOCIDAD;
-            y -= VELOCIDAD;
-        } else if (abajoPresionado && izquierdaPresionado) {
-            x -= VELOCIDAD;
-            y += VELOCIDAD;
-        } else if (abajoPresionado && derechaPresionado) {
-            x += VELOCIDAD;
-            y += VELOCIDAD;
-        } else if (arribaPresionado) {
-            y -= VELOCIDAD;
-        } else if (abajoPresionado) {
-            y += VELOCIDAD;
-        } else if (izquierdaPresionado) {
-            x -= VELOCIDAD;
-        } else if (derechaPresionado) {
-            x += VELOCIDAD;
-        }
+    public void mover(int ventanaAncho, int ventanaAlto) {
+
     }
 
-    // especificar a que movimiento corresponde cada tecla
+    // especificar a qué movimiento corresponde cada tecla
     public void keyPressed(int keyCode) {
         switch (keyCode) {
             case KeyEvent.VK_UP:

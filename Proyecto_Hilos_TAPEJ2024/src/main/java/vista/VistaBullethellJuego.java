@@ -1,6 +1,6 @@
-package Vista;
+package vista;
 
-import Modelo.Contador;
+import modelo.Contador;
 
 import javax.swing.*;
 import java.awt.*;
