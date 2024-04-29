@@ -25,6 +25,8 @@ public class vistaPuntuacion extends JFrame{
         setResizable(false);
         setSize(500,330);
         setLocationRelativeTo(null);
+
+        lblJuegoTerminado.setVisible(false);
         //esto se modificara al superar la mejor puntuacion
         lblRecord.setVisible(false);
     }

@@ -1,19 +1,28 @@
 package hilos;
 
 import java.awt.*;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
 
 public class HiloBalaRoja extends Thread {
 
     private int x, y, incX, incY;
     private final int RADIO_BALA = 10;
-    private Graphics g;
+    private BufferedImage rojoimagen;
 
-    public HiloBalaRoja(Graphics g, int px, int py) {
-        this.g = g;
+    public HiloBalaRoja( int px, int py) {
         x = px;
         y = py;
         incX = 5;
         incY = 3;
+
+        try {
+            // Cargar la imagen
+            rojoimagen = ImageIO.read(new File("Proyecto_Hilos_TAPEJ2024/src/main/java/assets/balaroja.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void run() {
@@ -54,8 +63,7 @@ public class HiloBalaRoja extends Thread {
     }
 
     public void dibujar(Graphics g) {
-        g.setColor(Color.RED);
-        g.fillOval(x - RADIO_BALA, y - RADIO_BALA, 2 * RADIO_BALA, 2 * RADIO_BALA);
+        g.drawImage(rojoimagen, x - RADIO_BALA, y - RADIO_BALA, 2 * RADIO_BALA, 2 * RADIO_BALA, null);
     }
 
 

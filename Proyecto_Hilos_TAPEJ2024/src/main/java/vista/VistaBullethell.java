@@ -1,6 +1,7 @@
 package vista;
 
 import hilos.*;
+import modelo.CuadradoControlable1;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -25,6 +26,7 @@ public class VistaBullethell extends Frame {
         setSize(800, 900);
         setBackground(Color.WHITE);
         setLocationRelativeTo(null);
+        setResizable(false);
 
 
         // Cargar la imagen para el fondo
@@ -119,7 +121,7 @@ public class VistaBullethell extends Frame {
                 break;
         }
 
-        HiloBalaRoja balaR = new HiloBalaRoja(getGraphics(), x, y);
+        HiloBalaRoja balaR = new HiloBalaRoja(x, y);
         balasRojas.add(balaR);
         balaR.start();
     }
@@ -145,14 +147,14 @@ public class VistaBullethell extends Frame {
                 y = (int) (Math.random() * getHeight());
                 break;
         }
-        HiloBalaAzul balaAzul = new HiloBalaAzul(getGraphics(), x, y);
+        HiloBalaAzul balaAzul = new HiloBalaAzul( x, y);
         balasAzules.add(balaAzul);
         balaAzul.start();
     }
 
     private void generarBalaVerdeAleatoria() {
         int direccion = (int) (Math.random() * 2); // 0 para izquierda, 1 para derecha
-        HiloBalaVerde balaVerde = new HiloBalaVerde(getGraphics(), getWidth(), getHeight(), direccion);
+        HiloBalaVerde balaVerde = new HiloBalaVerde( getWidth(), getHeight(), direccion);
         balasVerdes.add(balaVerde);
         balaVerde.start();
     }
@@ -187,9 +189,9 @@ public class VistaBullethell extends Frame {
             System.exit(0); // cierra el programa si las balas te tocan
         }
 
-
-
     }
+
+
     @Override
     public void update(Graphics g) {
         // implementacion de doble buffer (fuente:https://youtu.be/17y2hZWJN0U?si=JEBB9FcMUDNYLP9_ [dios mio que dolor de cabeza])

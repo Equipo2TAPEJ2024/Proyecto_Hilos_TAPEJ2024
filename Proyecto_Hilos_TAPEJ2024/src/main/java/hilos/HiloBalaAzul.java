@@ -1,18 +1,26 @@
 package hilos;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import javax.imageio.ImageIO;
 
 public class HiloBalaAzul extends Thread {
     private int x, y, incX, incY;
     private final int RADIO_BALA = 40;
-    private Graphics g;
+    private BufferedImage azulimagen;
 
-    public HiloBalaAzul(Graphics g, int px, int py) {
-        this.g = g;
+    public HiloBalaAzul( int px, int py) {
         x = px;
         y = py;
         incX = 2; // Velocidad más lenta que las balas rojas
         incY = 1; // Velocidad más lenta que las balas rojas
+
+        try {
+            azulimagen = ImageIO.read(new File("Proyecto_Hilos_TAPEJ2024/src/main/java/assets/balazul.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void run() {
@@ -53,8 +61,7 @@ public class HiloBalaAzul extends Thread {
     }
 
     public void dibujar(Graphics g) {
-        g.setColor(Color.BLUE);
-        g.fillOval(x - RADIO_BALA, y - RADIO_BALA, 2 * RADIO_BALA, 2 * RADIO_BALA);
+        g.drawImage(azulimagen, x - RADIO_BALA, y - RADIO_BALA, 2 * RADIO_BALA, 2 * RADIO_BALA, null);
     }
 
 }
