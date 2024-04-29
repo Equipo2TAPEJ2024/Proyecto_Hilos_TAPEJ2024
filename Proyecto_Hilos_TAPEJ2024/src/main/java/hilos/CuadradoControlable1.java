@@ -22,7 +22,27 @@ public class CuadradoControlable1 {
 
     // logica de movimiento considerqando las combinaciones de teclas
     public void mover(int ventanaAncho, int ventanaAlto) {
-
+        if (arribaPresionado && izquierdaPresionado && y > 0 && x > 0) {
+            x -= VELOCIDAD;
+            y -= VELOCIDAD;
+        } else if (arribaPresionado && derechaPresionado) {
+            x += VELOCIDAD;
+            y -= VELOCIDAD;
+        } else if (abajoPresionado && izquierdaPresionado) {
+            x -= VELOCIDAD;
+            y += VELOCIDAD;
+        } else if (abajoPresionado && derechaPresionado) {
+            x += VELOCIDAD;
+            y += VELOCIDAD;
+        } else if (arribaPresionado && y > 0) {
+            y -= VELOCIDAD;
+        } else if (abajoPresionado && y < ventanaAlto - tamaño) {
+            y += VELOCIDAD;
+        } else if (izquierdaPresionado && x > 0) {
+            x -= VELOCIDAD;
+        } else if (derechaPresionado && x < ventanaAncho - tamaño) {
+            x += VELOCIDAD;
+        }
     }
 
     // especificar a qué movimiento corresponde cada tecla
